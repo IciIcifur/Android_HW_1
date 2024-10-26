@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">HW_1</string>
+    <string name="header">Hello Maxim Valentinovich!</string>
+    <string name="greeting">Good afternoon, </string>
+    <string name="hint">Your name…</string>
+    <string name="button">Click me</string>
 </resources>

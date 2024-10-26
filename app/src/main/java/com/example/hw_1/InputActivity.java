@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,38 +12,32 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
-    Button b1;
-    TextView result;
+public class InputActivity extends AppCompatActivity {
+    Button b2;
+    EditText edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_input);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        Intent intent = new Intent(MainActivity.this, InputActivity.class);
 
-        b1 = findViewById(R.id.b1);
-        b1.setOnClickListener(new View.OnClickListener() {
+        Intent data = getIntent();
+        b2 = findViewById(R.id.b2);
+        b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("greeting", getString(R.string.greeting));
-                startActivityForResult(intent, 0);
+                edit = findViewById(R.id.input);
+                Intent result = new Intent();
+                result.putExtra("result", data.getStringExtra("greeting") + " " + edit.getText().toString());
+                setResult(0, result);
+                finish();
             }
         });
-    }
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        result = findViewById(R.id.entered_name);
-        if (data != null && resultCode == 0) {
-            result.setText(data.getStringExtra("result"));
-        }
     }
 }
